@@ -1,630 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduNova Demo Reel</title>
-  <style>
-    :root {
-      --bg-1: #0b132b;
-      --bg-2: #111827;
-      --panel: rgba(15, 23, 42, 0.8);
-      --panel-2: rgba(30, 41, 59, 0.92);
-      --primary: #7c3aed;
-      --primary-2: #22c55e;
-      --accent: #38bdf8;
-      --text: #e5eefb;
-      --muted: #a4b3c8;
-      --gold: #fbbf24;
-      --shadow: rgba(0,0,0,0.35);
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      font-family: Inter, Segoe UI, sans-serif;
-      background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
-      color: var(--text);
-      overflow: hidden;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .demo-shell {
-      position: relative;
-      width: min(100%, 1400px);
-      height: min(82vh, 860px);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 30px 80px var(--shadow);
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.22);
-    }
-
-    .demo-shell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top left, rgba(124, 58, 237, 0.28), transparent 32%),
-        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.18), transparent 28%);
-      pointer-events: none;
-    }
-
-    .slides {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-rows: 1fr;
-      animation: slideCycle 18s ease-in-out infinite;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      padding: 42px 52px 34px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 32px;
-      opacity: 0;
-      transform: translateX(50px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-      animation: fadeSlide 18s ease-in-out infinite;
-    }
-
-    .slide:nth-child(1) { animation-delay: 0s; }
-    .slide:nth-child(2) { animation-delay: 6s; }
-    .slide:nth-child(3) { animation-delay: 12s; }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-bottom: 18px;
-      color: var(--text);
-    }
-
-    .brand-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: 0 10px 20px rgba(124,58,237,0.38);
-      font-size: 18px;
-    }
-
-    h1, h2, h3, p { margin: 0; }
-
-    .eyebrow {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .hero-title {
-      font-size: clamp(2.8rem, 4vw, 5.4rem);
-      line-height: 1.02;
-      letter-spacing: -0.06em;
-      max-width: 700px;
-    }
-
-    .lead {
-      margin-top: 22px;
-      max-width: 650px;
-      font-size: 1.17rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .cta-row {
-      margin-top: 28px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      padding: 14px 22px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .button:hover { transform: translateY(-2px); }
-
-    .button.primary {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      box-shadow: 0 18px 30px rgba(124, 58, 237, 0.30);
-    }
-
-    .button.secondary {
-      background: rgba(148, 163, 184, 0.08);
-      color: var(--text);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(130px, 1fr));
-      gap: 18px;
-      margin-top: 32px;
-      max-width: 420px;
-    }
-
-    .stat-card {
-      padding: 20px 18px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      border-radius: 18px;
-      backdrop-filter: blur(8px);
-    }
-
-    .stat-icon {
-      font-size: 1.3rem;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: 2rem;
-      letter-spacing: -0.04em;
-      margin-bottom: 4px;
-    }
-
-    .stat-card span {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(17, 24, 39, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 26px 60px rgba(15, 23, 42, 0.32);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(56, 189, 248, 0.06));
-      pointer-events: none;
-    }
-
-    .panel > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .mock-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 26px;
-      color: var(--muted);
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .mock-tag {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(124, 58, 237, 0.13);
-      color: #d8c7ff;
-      border: 1px solid rgba(124,58,237,0.28);
-    }
-
-    .mock-card {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    .course-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .mini-line {
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(124,58,237,0.9), rgba(56,189,248,0.8));
-      margin-bottom: 8px;
-    }
-
-    .mini-line.short { width: 54%; }
-    .mini-line.medium { width: 70%; }
-    .mini-line.long { width: 88%; }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .mini-card {
-      height: 112px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(17, 24, 39, 0.8));
-      border: 1px solid rgba(148,163,184,0.16);
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .drop {
-      width: 24px;
-      height: 24px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--primary-2), var(--accent));
-      display: inline-block;
-      box-shadow: 0 10px 25px rgba(34,197,94,0.26);
-    }
-
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 26px 0 0;
-      display: grid;
-      gap: 16px;
-    }
-
-    .feature-list li {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 16px 18px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      border-radius: 16px;
-      color: var(--muted);
-    }
-
-    .feature-list strong {
-      display: block;
-      color: var(--text);
-      margin-bottom: 6px;
-      font-size: 1.05rem;
-    }
-
-    .feature-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(124,58,237,0.26), rgba(56,189,248,0.18));
-      color: var(--accent);
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    .progress-ring {
-      width: 200px;
-      height: 200px;
-      margin: 10px auto 18px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: conic-gradient(var(--primary) 0 72%, rgba(148,163,184,0.18) 72% 100%);
-      position: relative;
-    }
-
-    .progress-ring::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: 50%;
-    }
-
-    .progress-value {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-
-    .progress-value strong {
-      display: block;
-      font-size: 2.5rem;
-      letter-spacing: -0.05em;
-    }
-
-    .progress-value span {
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .testimonial {
-      margin-top: 22px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(148,163,184,0.16);
-      border-radius: 18px;
-      padding: 18px 20px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .person {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--gold), #f97316);
-      color: #111827;
-    }
-
-    .person strong { display: block; }
-    .person span { color: var(--muted); font-size: 0.82rem; }
-
-    .slide:nth-child(1) { opacity: 1; }
-    .slide:nth-child(2) { animation-delay: 6s; }
-    .slide:nth-child(3) { animation-delay: 12s; }
-
-    @keyframes fadeSlide {
-      0%, 16% { opacity: 1; transform: translateX(0); }
-      28%, 72% { opacity: 1; transform: translateX(0); }
-      84%, 100% { opacity: 0; transform: translateX(-30px); }
-    }
-
-    @media (max-width: 960px) {
-      .slide {
-        grid-template-columns: 1fr;
-        padding: 24px 22px 20px;
-      }
-
-      .demo-shell {
-        height: 82vh;
-      }
-
-      .hero-title {
-        font-size: clamp(2.2rem, 8vw, 3.3rem);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduNova - Smart Student Learning Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <div class="demo-shell">
-    <div class="slides">
-      <section class="slide">
-        <div>
-          <div class="brand">
-            <span class="brand-badge">E</span>
-            <span>EduNova</span>
-          </div>
-
-          <div class="eyebrow">Smart Student Learning Platform</div>
-          <h1 class="hero-title">Master web development with a plan that fits your week.</h1>
-          <p class="lead">Real video lessons, timed quizzes, a study planner, and verifiable certificates—everything students need to stay focused and move faster.</p>
-
-          <div class="cta-row">
-            <a class="button primary" href="#">Start Learning</a>
-            <a class="button secondary" href="#">Verify Certificate</a>
-          </div>
-
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-icon">📚</div>
-              <strong>9+</strong>
-              <span>Courses</span>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <i class="fas fa-graduation-cap"></i>
+                    EduNova
+                </a>
             </div>
-            <div class="stat-card">
-              <div class="stat-icon">👥</div>
-              <strong>500+</strong>
-              <span>Students</span>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#" class="auth-link" data-page="login">Login</a></li>
+                <li><a href="#" class="auth-link" data-page="register">Register</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-            <div class="stat-card">
-              <div class="stat-icon">🎥</div>
-              <strong>27+</strong>
-              <span>Lessons</span>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon">⭐</div>
-              <strong>4.7</strong>
-              <span>Rating</span>
-            </div>
-          </div>
         </div>
+    </nav>
 
-        <aside class="panel">
-          <div class="mock-nav">
-            <span>EduNova</span>
-            <span class="mock-tag">Trending</span>
-          </div>
-
-          <div class="mock-card">
-            <div class="course-row">
-              <strong>Full Stack Bootcamp</strong>
-              <span style="color: var(--gold);">4.9</span>
-            </div>
-            <div class="mini-line medium"></div>
-            <div class="mini-line short"></div>
-          </div>
-
-          <div class="mock-card">
-            <div class="course-row">
-              <strong>Modern JavaScript</strong>
-              <span style="color: var(--secondary);">4.8</span>
-            </div>
-            <div class="mini-line long"></div>
-            <div class="mini-line short"></div>
-          </div>
-
-          <div class="grid-3">
-            <div class="mini-card">
-              <span class="drop"></span>
-              <strong>Videos</strong>
-            </div>
-            <div class="mini-card">
-              <span class="drop" style="background: linear-gradient(135deg, #f59e0b, #f97316);"></span>
-              <strong>Quizzes</strong>
-            </div>
-            <div class="mini-card">
-              <span class="drop" style="background: linear-gradient(135deg, #22c55e, #14b8a6);"></span>
-              <strong>Badges</strong>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section class="slide">
-        <div>
-          <div class="eyebrow">Learning Workflow</div>
-          <h2 class="hero-title" style="font-size: clamp(2.4rem, 3vw, 4rem);">Study smarter with personalized progress tracking.</h2>
-          <ul class="feature-list">
-            <li>
-              <div class="feature-icon">▶</div>
-              <div>
-                <strong>Video lessons</strong>
-                Learn from structured lessons with practical examples and hands-on projects.
-              </div>
-            </li>
-            <li>
-              <div class="feature-icon">✓</div>
-              <div>
-                <strong>Instant quiz feedback</strong>
-                Strengthen weak areas faster with timed quizzes and score insights.
-              </div>
-            </li>
-            <li>
-              <div class="feature-icon">📆</div>
-              <div>
-                <strong>Planner + streaks</strong>
-                Keep momentum through daily plans, deadlines, and consistency tracking.
-              </div>
-            </li>
-          </ul>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="particles"></div>
         </div>
-
-        <aside class="panel">
-          <div class="mock-nav">
-            <span>Dashboard</span>
-            <span class="mock-tag">Live</span>
-          </div>
-
-          <div class="progress-ring">
-            <div class="progress-value">
-              <strong>72%</strong>
-              <span>Overall Progress</span>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text" data-aos="fade-right">
+                    <h1>Master web development with a plan that fits your week.</h1>
+                    <p>Real video lessons, timed quizzes with instant feedback, a study planner that keeps you honest, and certificates you can actually verify. Free to start.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary auth-link" data-page="register">Start Learning</a>
+                        <a href="#" class="btn btn-secondary">Verify Certificate</a>
+                    </div>
+                </div>
+                <div class="hero-stats" data-aos="fade-left">
+                    <div class="stat-card">
+                        <i class="fas fa-book"></i>
+                        <h3>9+</h3>
+                        <p>Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>500+</h3>
+                        <p>Students</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>27+</h3>
+                        <p>Lessons</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3>4.7</h3>
+                        <p>Rating</p>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div class="mock-card">
-            <div class="course-row">
-              <strong>Continue Learning</strong>
-              <span style="color: var(--accent);">View All</span>
-            </div>
-            <div class="mini-line long"></div>
-            <div class="mini-line medium"></div>
-          </div>
-
-          <div class="mock-card">
-            <div class="course-row">
-              <strong>Upcoming deadlines</strong>
-            </div>
-            <div class="mini-line short"></div>
-            <div class="mini-line medium"></div>
-          </div>
-        </aside>
-      </section>
-
-      <section class="slide">
-        <div>
-          <div class="eyebrow">Student Impact</div>
-          <h2 class="hero-title" style="font-size: clamp(2.4rem, 3vw, 4rem);">A platform built for confidence, accountability, and outcomes.</h2>
-          <p class="lead">From beginner to job-ready, EduNova helps students learn at their own pace while tracking milestones, badges, and verifiable certificates.</p>
-
-          <div class="testimonial">
-            “The study planner kept me accountable. I completed three courses in two months and landed my dream role.”
-            <div class="person">
-              <div class="avatar">PM</div>
-              <div>
-                <strong>Priya Mehta</strong>
-                <span>Full Stack Developer</span>
-              </div>
-            </div>
-          </div>
         </div>
+    </section>
 
-        <aside class="panel">
-          <div class="mock-nav">
-            <span>Certificate</span>
-            <span class="mock-tag">Verified</span>
-          </div>
+    <!-- Trending Courses -->
+    <section class="courses-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Trending Courses</h2>
+                <p>Explore our most popular courses</p>
+            </div>
+            <div class="courses-grid" id="trendingCourses">
+                <!-- Courses will be loaded dynamically -->
+            </div>
+            <div class="text-center" data-aos="fade-up">
+                <a href="courses.html" class="btn btn-outline">View All Courses</a>
+            </div>
+        </div>
+    </section>
 
-          <div style="background: rgba(124, 58, 237, 0.08); border: 1px solid rgba(124,58,237,0.22); border-radius: 20px; padding: 18px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: var(--muted);">
-              <span>EduNova</span>
-              <span>2024</span>
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Why Choose EduNova?</h2>
+                <p>Everything you need to succeed in your learning journey</p>
             </div>
-            <div style="font-size: 2rem; font-weight: 900; letter-spacing: -0.05em;">Web Fundamentals</div>
-            <div style="margin-top: 18px; height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
-            <div style="margin-top: 18px; display: flex; justify-content: space-between; color: var(--muted);">
-              <span>Student</span>
-              <span>Completed</span>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Lessons</h3>
+                    <p>High-quality video content with clear explanations and practical examples.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>Interactive Quizzes</h3>
+                    <p>Test your knowledge with timed quizzes and get instant feedback.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Study Planner</h3>
+                    <p>Stay on track with personalized study plans and daily goals.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Certificates</h3>
+                    <p>Earn verifiable certificates upon course completion.</p>
+                </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-          <div class="grid-3">
-            <div class="mini-card">
-              <span class="drop" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);"></span>
-              <strong>Badges</strong>
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>What Our Students Say</h2>
+                <p>Success stories from our community</p>
             </div>
-            <div class="mini-card">
-              <span class="drop" style="background: linear-gradient(135deg, #38bdf8, #0ea5e9);"></span>
-              <strong>XP</strong>
+            <div class="testimonials-grid">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-content">
+                        <p>"EduNova helped me transition from a complete beginner to a confident web developer. The structured approach and practical projects were invaluable."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AS</div>
+                        <div class="author-info">
+                            <h4>Aarav Sharma</h4>
+                            <p>Web Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-content">
+                        <p>"The study planner feature kept me accountable. I completed 3 courses in 2 months and landed my dream job!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PM</div>
+                        <div class="author-info">
+                            <h4>Priya Mehta</h4>
+                            <p>Full Stack Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-content">
+                        <p>"The instant feedback on quizzes helped me identify my weak areas quickly. Highly recommended for anyone serious about learning."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-info">
+                            <h4>Rahul Kumar</h4>
+                            <p>Data Analyst</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mini-card">
-              <span class="drop" style="background: linear-gradient(135deg, #22c55e, #16a34a);"></span>
-              <strong>Streak</strong>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Frequently Asked Questions</h2>
             </div>
-          </div>
-        </aside>
-      </section>
-    </div>
-  </div>
+            <div class="faq-container" data-aos="fade-up">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is EduNova really free?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! EduNova is completely free to start. You can access all courses, lessons, and quizzes without any cost. We believe education should be accessible to everyone.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I earn certificates?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Complete all lessons in a course and pass the final quiz with a score of 70% or higher to earn a verifiable certificate.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I learn at my own pace?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Our study planner helps you set your own pace. You can access lessons anytime, anywhere, and track your progress.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>EduNova</h3>
+                    </div>
+                    <p>Empowering students to achieve their learning goals through quality education and practical skills.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@edunova.com</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education St</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EduNova. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
