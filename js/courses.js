@@ -1,6 +1,6 @@
 const API_URL = 'http://localhost:5000/api';
 
-// Sample course data (will be replaced with API calls)
+// Sample course data used when backend is unavailable (GitHub Pages / demo mode)
 const sampleCourses = [
     {
         _id: '1',
@@ -81,11 +81,13 @@ async function loadCourses() {
         
         if (response.ok) {
             courses = await response.json();
+        } else {
+            console.warn('API unavailable, using demo course data.');
         }
         
         displayCourses(courses);
     } catch (error) {
-        console.error('Error loading courses:', error);
+        console.warn('Error loading courses from API, using demo data instead:', error);
         displayCourses(sampleCourses);
     }
 }

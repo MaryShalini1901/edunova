@@ -2,6 +2,14 @@ const API_URL = 'http://localhost:5000/api';
 const token = localStorage.getItem('token');
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 
+const demoDashboardProfile = {
+    name: 'Mary Shalini',
+    streak: 12,
+    xp: 1600,
+    enrolledCourses: ['1', '2', '3'],
+    completedCourses: ['1']
+};
+
 // Update dashboard with user data
 async function loadDashboard() {
     try {
@@ -14,10 +22,13 @@ async function loadDashboard() {
         if (response.ok) {
             const userData = await response.json();
             updateDashboardUI(userData);
+            return;
         }
     } catch (error) {
-        console.error('Error loading dashboard:', error);
+        console.error('Error loading dashboard from API, showing demo data instead:', error);
     }
+
+    updateDashboardUI(demoDashboardProfile);
 }
 
 function updateDashboardUI(userData) {
@@ -182,6 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (token) {
         loadDashboard();
     } else {
-        window.location.href = 'login.html';
+        updateDashboardUI(demoDashboardProfile);
     }
 });

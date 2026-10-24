@@ -81,11 +81,13 @@ async function loadCourses() {
         
         if (response.ok) {
             courses = await response.json();
+        } else {
+            console.warn('API unavailable, using demo course data.');
         }
         
         displayCourses(courses);
     } catch (error) {
-        console.error('Error loading courses:', error);
+        console.warn('Error loading courses from API, using demo data instead:', error);
         displayCourses(sampleCourses);
     }
 }
