@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - EduNova</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <i class="fas fa-graduation-cap"></i>
+                    EduNova
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">AS</div>
+                    <div class="user-dropdown">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-layout">
+                <!-- Profile Card -->
+                <div class="profile-card" data-aos="fade-right">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img id="profileAvatar" src="https://via.placeholder.com/150" alt="Profile">
+                            <button class="avatar-upload">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2 id="profileName">Student Name</h2>
+                        <p id="profileEmail">student@email.com</p>
+                        <div class="profile-level">
+                            <span class="level-badge">Level <span id="profileLevel">1</span></span>
+                            <span class="xp-badge"><span id="profileXP">0</span> XP</span>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <i class="fas fa-fire"></i>
+                            <span><strong id="profileStreak">0</strong> Day Streak</span>
+                        </div>
+                        <div class="profile-stat">
+                            <i class="fas fa-book"></i>
+                            <span><strong id="profileCourses">0</strong> Courses</span>
+                        </div>
+                        <div class="profile-stat">
+                            <i class="fas fa-certificate"></i>
+                            <span><strong id="profileCertificates">0</strong> Certificates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Edit Profile Form -->
+                    <div class="profile-form-card" data-aos="fade-left">
+                        <div class="section-header">
+                            <h2>Edit Profile</h2>
+                        </div>
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" value="Student Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" name="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="skills">Skills (comma separated)</label>
+                                <input type="text" id="skills" name="skills" placeholder="JavaScript, React, Node.js">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="achievements-card" data-aos="fade-left" data-aos-delay="100">
+                        <div class="section-header">
+                            <h2>Achievements</h2>
+                        </div>
+                        <div class="achievements-grid" id="achievementsGrid">
+                            <div class="achievement-badge">
+                                <i class="fas fa-medal"></i>
+                                <span>First Course</span>
+                            </div>
+                            <div class="achievement-badge">
+                                <i class="fas fa-fire"></i>
+                                <span>7 Day Streak</span>
+                            </div>
+                            <div class="achievement-badge">
+                                <i class="fas fa-star"></i>
+                                <span>Quiz Master</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificates -->
+                    <div class="certificates-card" data-aos="fade-left" data-aos-delay="200">
+                        <div class="section-header">
+                            <h2>Certificates</h2>
+                        </div>
+                        <div class="certificates-list" id="certificatesList">
+                            <p class="no-certificates">No certificates earned yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

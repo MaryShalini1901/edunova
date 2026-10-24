@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EduNova</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <i class="fas fa-graduation-cap"></i>
+                    EduNova
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">AS</div>
+                    <div class="user-dropdown">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="dashboard-layout">
+                <!-- Sidebar -->
+                <aside class="dashboard-sidebar">
+                    <nav class="sidebar-nav">
+                        <a href="#" class="sidebar-link active" data-section="overview">
+                            <i class="fas fa-home"></i>
+                            <span>Overview</span>
+                        </a>
+                        <a href="#" class="sidebar-link" data-section="courses">
+                            <i class="fas fa-book"></i>
+                            <span>My Courses</span>
+                        </a>
+                        <a href="#" class="sidebar-link" data-section="planner">
+                            <i class="fas fa-calendar"></i>
+                            <span>Planner</span>
+                        </a>
+                        <a href="#" class="sidebar-link" data-section="achievements">
+                            <i class="fas fa-trophy"></i>
+                            <span>Achievements</span>
+                        </a>
+                        <a href="#" class="sidebar-link" data-section="certificates">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificates</span>
+                        </a>
+                        <a href="#" class="sidebar-link" data-section="forum">
+                            <i class="fas fa-comments"></i>
+                            <span>Forum</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="dashboard-main">
+                    <!-- Welcome Section -->
+                    <div class="dashboard-welcome" data-aos="fade-up">
+                        <h1 id="welcomeMessage">Good morning, <span id="userName">Student</span> 👋</h1>
+                        <p id="progressSummary">You are 0% through 0 courses. Keep the streak alive!</p>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="dashboard-stats" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="streakCount">0</h3>
+                                <p>Day Streak</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="xpCount">0</h3>
+                                <p>Total XP</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="certificateCount">0</h3>
+                                <p>Certificates</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="badgeCount">0</h3>
+                                <p>Badges</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Circle -->
+                    <div class="dashboard-progress" data-aos="fade-up" data-aos-delay="200">
+                        <div class="progress-circle">
+                            <svg class="progress-svg" viewBox="0 0 200 200">
+                                <circle class="progress-bg" cx="100" cy="100" r="90"></circle>
+                                <circle class="progress-fill" cx="100" cy="100" r="90" id="progressCircle"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <h2 id="overallProgress">0%</h2>
+                                <p>Overall Progress</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Continue Learning -->
+                    <div class="dashboard-section" data-aos="fade-up" data-aos-delay="300">
+                        <div class="section-header">
+                            <h2>Continue Learning</h2>
+                            <a href="courses.html" class="btn-link">View All</a>
+                        </div>
+                        <div class="course-list" id="continueLearning">
+                            <!-- Courses will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Deadlines -->
+                    <div class="dashboard-section" data-aos="fade-up" data-aos-delay="400">
+                        <div class="section-header">
+                            <h2>Upcoming Deadlines</h2>
+                        </div>
+                        <div class="deadline-list" id="upcomingDeadlines">
+                            <div class="deadline-item">
+                                <div class="deadline-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="deadline-info">
+                                    <h4>Build an accessible tabbed interface</h4>
+                                    <p>React from the Ground Up</p>
+                                </div>
+                                <div class="deadline-date">
+                                    <span>13 Aug</span>
+                                </div>
+                            </div>
+                            <div class="deadline-item">
+                                <div class="deadline-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="deadline-info">
+                                    <h4>Add a protected dashboard route</h4>
+                                    <p>Modern JavaScript</p>
+                                </div>
+                                <div class="deadline-date">
+                                    <span>17 Aug</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>AI Learning Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot">
+                    <p>Hello! I'm your AI learning assistant. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message...">
+                <button id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
