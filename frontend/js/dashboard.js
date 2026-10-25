@@ -180,11 +180,67 @@ function addMessage(message, type) {
 }
 
 // Sidebar navigation
+const dashboardMain = document.querySelector('.dashboard-main');
+const dashboardOverview = dashboardMain ? Array.from(dashboardMain.children) : [];
+
+function showDashboardAction(sectionName) {
+    if (!dashboardMain) return;
+
+    dashboardOverview.forEach(child => {
+        child.hidden = true;
+    });
+
+    let actionPanel = document.getElementById('dashboardActionPanel');
+    if (!actionPanel) {
+        actionPanel = document.createElement('section');
+        actionPanel.id = 'dashboardActionPanel';
+        actionPanel.className = 'dashboard-section dashboard-action-panel';
+        dashboardMain.appendChild(actionPanel);
+    }
+
+    const actions = {
+        planner: ['Study Planner', 'Plan your next study session and keep your learning schedule on track.', 'Open Courses'],
+        achievements: ['Achievements', 'Complete lessons and quizzes to unlock new achievements.', 'Continue Learning'],
+        certificates: ['Certificates', 'Your certificates will appear here when you complete a course.', 'Browse Courses'],
+        forum: ['Learning Forum', 'Ask questions, share ideas, and learn together with the EduNova community.', 'Browse Courses']
+    };
+    const [title, description, buttonLabel] = actions[sectionName] || actions.planner;
+    actionPanel.innerHTML = `
+        <div class="section-header">
+            <h2>${title}</h2>
+        </div>
+        <p>${description}</p>
+        <a class="btn btn-primary" href="courses.html">${buttonLabel}</a>
+    `;
+    actionPanel.hidden = false;
+}
+
+function showDashboardOverview() {
+    dashboardOverview.forEach(child => {
+        child.hidden = false;
+    });
+    const actionPanel = document.getElementById('dashboardActionPanel');
+    if (actionPanel) actionPanel.hidden = true;
+}
+
 document.querySelectorAll('.sidebar-link').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+        const sectionName = link.dataset.section || 'overview';
+        document.querySelectorAll('.sidebar-link').forEach(item => {
+            item.classList.toggle('active', item === link);
+        });
+
+        if (sectionName === 'courses') {
+            window.location.href = 'courses.html';
+            return;
+        }
+
+        if (sectionName === 'overview') {
+            showDashboardOverview();
+        } else {
+            showDashboardAction(sectionName);
+        }
     });
 });
 
