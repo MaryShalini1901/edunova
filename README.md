@@ -77,6 +77,6 @@ For development with automatic restarts:
 npm run dev
 ```
 
-Open <http://localhost:5000> in a browser. The Express server serves the frontend from the project root and exposes the API under `/api`.
+Open <http://localhost:5000> in a browser. The Express server serves the frontend from `frontend/` and exposes the API under `/api`.
 
 Never commit `.env`, database credentials, or `node_modules/`. The included `.env.example` contains placeholders only.
