@@ -223,13 +223,23 @@ function showDashboardOverview() {
     if (actionPanel) actionPanel.hidden = true;
 }
 
+function setActiveDashboardSection(sectionName) {
+    const panels = document.querySelectorAll('.content-panel');
+    panels.forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.panel === sectionName);
+        panel.style.display = panel.dataset.panel === sectionName ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.section === sectionName);
+    });
+}
+
 document.querySelectorAll('.sidebar-link').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const sectionName = link.dataset.section || 'overview';
-        document.querySelectorAll('.sidebar-link').forEach(item => {
-            item.classList.toggle('active', item === link);
-        });
+        setActiveDashboardSection(sectionName);
 
         if (sectionName === 'courses') {
             window.location.href = 'courses.html';

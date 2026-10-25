@@ -12,7 +12,7 @@ const sampleCourses = [
         duration: 20,
         rating: 4.8,
         enrolledCount: 150,
-        image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=900&q=80'
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80'
     },
     {
         _id: '2',
@@ -24,7 +24,7 @@ const sampleCourses = [
         duration: 25,
         rating: 4.7,
         enrolledCount: 200,
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80'
+        image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80'
     },
     {
         _id: '3',
@@ -36,7 +36,7 @@ const sampleCourses = [
         duration: 30,
         rating: 4.9,
         enrolledCount: 300,
-        image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&w=900&q=80'
+        image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80'
     },
     {
         _id: '4',
@@ -48,7 +48,7 @@ const sampleCourses = [
         duration: 35,
         rating: 4.6,
         enrolledCount: 120,
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80'
+        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80'
     },
     {
         _id: '5',
@@ -60,7 +60,7 @@ const sampleCourses = [
         duration: 15,
         rating: 4.5,
         enrolledCount: 180,
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=80'
+        image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80'
     },
     {
         _id: '6',
@@ -72,7 +72,7 @@ const sampleCourses = [
         duration: 40,
         rating: 4.8,
         enrolledCount: 250,
-        image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=900&q=80'
+        image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80'
     }
 ];
 
