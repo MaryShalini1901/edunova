@@ -79,4 +79,6 @@ npm run dev
 
 Open <http://localhost:5000> in a browser. The Express server serves the frontend from `frontend/` and exposes the API under `/api`.
 
+GitHub Pages deploys the contents of `frontend/` through the workflow in `.github/workflows/deploy-pages.yml`. After the workflow completes, the site is available at <https://maryshalini1901.github.io/edunova/>.
+
 Never commit `.env`, database credentials, or `node_modules/`. The included `.env.example` contains placeholders only.
